@@ -9,7 +9,7 @@ const getFileNameFromUrl = (url) => {
 };
 
 module.exports =func= async (client, id,url,time ) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const fileName = getFileNameFromUrl(url)
   // Navigate to the webpage you want to convert
