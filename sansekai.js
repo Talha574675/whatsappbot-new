@@ -13,6 +13,7 @@ require('dotenv').config();
 let message = ''
 let users = []
 let key = true
+const ss = require('./ss.js')
 const instadownloader = require('./insta.js')
 const ytdownload = require('./ytdownload')
 const sendfromlink = require('./sendfromlink.js')
@@ -118,10 +119,19 @@ fs1.emptyDir(folderPath, (err) => {
          let ai= budytext.indexOf('img')
          let ytLink = budy.split('.')[0] == 'https://youtu';
          let insta = budy.split('.')[1] == 'instagram'
-            try { if(insta){
+            try {
+              if(budy.startsWith('http') || validUrl.isUri(budy) || validUrl.isUri(`https://${budy}`)){
+              if(budy.startsWith('http'))
+             ss(client,m.sender,budy)
+              else
+              ss(client,m.sender,`https://${budy}`)
+               
+                
+          }else if(budy.startsWith('insta')|| budy.startsWith('Insta')){
 
                 console.log('running insta')
-                instadownloader(budy, client, m.sender, `./users/${m.sender.split('@')[0]}video.mp4`)
+                let lang = budy.split(' ')[1]
+                instadownloader(lang, client, m.sender, `./users/${m.sender.split('@')[0]}video.mp4`)
             }
                else if(budy.startsWith('tts')){
                let text = budy.split(' ').splice(2)
