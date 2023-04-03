@@ -113,7 +113,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
          let ytLink = budy.split('.')[0] == 'https://youtu';
          let insta = budy.split('.')[1] == 'instagram'
             try {
-              if(budy.startsWith('http') || validUrl.isUri(budy) || validUrl.isUri(`https://${budy}`)){
+           if(budy.startsWith('http') && validUrl.isUri(budy)){
               if(budy.startsWith('http'))
              ss(client,m.sender,budy)
               else
