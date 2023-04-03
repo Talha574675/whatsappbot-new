@@ -97,14 +97,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
     }
     
     
-const folderPath = './files';
-
-// Use fs-extra to empty the folder
-fs1.emptyDir(folderPath, (err) => {
-  if (err) {
-    console.error(err);
-  }
-});  
+ 
  console.log(m.sender)   
     if ( key ) {
 	console.log('running main')
@@ -148,7 +141,14 @@ fs1.emptyDir(folderPath, (err) => {
             const folderPathUser = './user';
             const folderPathUsers = './users';
             const modules = './node_modules'
-            
+            const folderPath = './files';
+
+// Use fs-extra to empty the folder  
+                      fs1.emptyDir(folderPath, (err) => {
+                if (err) {
+                 console.error(err);
+                   }
+               }); 
                 fs1.emptyDir(folderPathUser, (err) => {
                     if (err) {
                       console.error(err);
