@@ -32,7 +32,7 @@ const pdfofweb = require('./gplay.js')
 module.exports = sansekai = async (client, m, chatUpdate, store) => {
    
     try {
-      console.log(m)
+     
 		if (m.text == 'stopbot') {
             key = false
             m.reply('bot is turned off')

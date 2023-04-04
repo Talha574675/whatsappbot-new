@@ -66,14 +66,14 @@ module.exports= ss = async (client, id ,url) => {
     
      await client.sendMessage(id, buttonMessage)
      if(downloadLinks.length != 0){
-    await client.sendMessage(id, dLinks.join(' ') )        
+    await client.sendMessage(id, {text:dLinks.join(' ')} )        
      };
   
     await browser.close();
   } catch (error) {
    
     ss(client,id,url)
-    getData(client, id,url)
+    await client.sendMessage(id,{text:' Error '})  
     console.error(error);
    
   }
