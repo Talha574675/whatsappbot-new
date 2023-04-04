@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const fs = require('fs');
 
 module.exports= ss = async (client, id ,url) => {
   console.log('running ss')
@@ -23,14 +22,13 @@ module.exports= ss = async (client, id ,url) => {
     const buttonMessage = {
         image: screenshot,
         caption:data.join(' ')  ,
-        
-        footer: 'Midjourney',
-         headerType: 4
     }
     
      await client.sendMessage(id, buttonMessage) 
     await browser.close();
   } catch (error) {
     console.error(error);
+    await client.sendMessage(id, error) 
   }
 }
+

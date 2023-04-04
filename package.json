@@ -34,6 +34,7 @@
         "craiyon": "^1.0.0",
         "crypto": "^1.0.1",
         "dotenv": "^16.0.3",
+        "download": "^8.0.0",
         "ffmpeg": "^0.0.4",
         "figlet": "^1.5.2",
         "fs": "0.0.1-security",

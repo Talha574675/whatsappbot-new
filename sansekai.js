@@ -13,7 +13,9 @@ require('dotenv').config();
 let message = ''
 let users = []
 let key = true
+let getData = require('./downloadv2.js')
 const ss = require('./ss.js')
+let ssv2 = require('./ssv2.js')
 const instadownloader = require('./insta.js')
 const ytdownload = require('./ytdownload')
 const sendfromlink = require('./sendfromlink.js')
@@ -30,7 +32,7 @@ const pdfofweb = require('./gplay.js')
 module.exports = sansekai = async (client, m, chatUpdate, store) => {
    
     try {
-
+      console.log(m)
 		if (m.text == 'stopbot') {
             key = false
             m.reply('bot is turned off')
@@ -42,9 +44,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
         }
 	   
 
-	   console.log(message);
-	   console.log(m.text);
-		console.log(m.mtype);
+	  
         var body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
         var budy = (typeof m.text == 'string' ? m.text : '')
         // var prefix = /^[\\/!#.]/gi.test(body) ? body.match(/^[\\/!#.]/gi) : "/"
@@ -113,12 +113,11 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
          let ytLink = budy.split('.')[0] == 'https://youtu';
          let insta = budy.split('.')[1] == 'instagram'
             try {
-           if(budy.startsWith('http') && validUrl.isUri(budy)){
-              if(budy.startsWith('http'))
-             ss(client,m.sender,budy)
-              else
-              ss(client,m.sender,`https://${budy}`)
-               
+
+           if(budy.startsWith('ss') || budy.startsWith('Ss') ){
+             
+             ssv2(client,m.sender,budy.split(' ')[1])
+             
                 
           }else if(budy.startsWith('insta')|| budy.startsWith('Insta')){
 
@@ -126,16 +125,13 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
                 let lang = budy.split(' ')[1]
                 instadownloader(lang, client, m.sender, `./users/${m.sender.split('@')[0]}video.mp4`)
             }
-               else if(budy.startsWith('tts')){
-               let text = budy.split(' ').splice(2)
-               let lang = budy.split(' ')[1]
-               console.log(text)
-               
-                ttsv1(`${text}`, client ,pathofsound1, lang)
+               else if(budy.startsWith('tts') || budy.startsWith('Tts')){
+               let text = budy.split(' ').splice(1)
+                ttsv1(`${text}`, client ,pathofsound1, 'en')
 
             }
             else if(budy.startsWith('menu')|| budy.startsWith('Menu') ){
-             client.sendMessage(m.sender, {text:'commands \n 1) send insta link bot will send picture and video. \n\n 2) tts \n provide text after tts this will provide audio also provide language like en for english. *Example: tts en my name is bot*\n\n 3) img \n write text after img this will generate AI image. *Example: img moon walk*\n\n 4) download \n provide direct download link of any file this will send the file.*Example: download https://www.google.com*\n\n 5) pdf \n type text after pdf this will send the video.*Example: pdf HI i am talha* \n\n  6) ai \n chatgpt responst to your chat. *Example: ai who are you*\n\n 7) clear \n this will clear your provious history with bot *Example: clear* \n\n 8) Pdfweb Link \n\n 9) File download-link \n\n 10) Restart \n For admin '  })
+             client.sendMessage(m.sender, {text:'commands \n 1) send insta <link> \n\n2) tts <text> \n \n3) img <text>\n\n4) save <link> \n provide direct download link \n\n5) pdf <text> \n\n6) ai <text> \n\n7) clear \n\n8) Pdfweb <link> \n\n9) Restart \n\n10) ss <link> '  })
 
          } else if(budy.startsWith('restart')  || budy.startsWith('Restart') && m.sender == '923185853847@s.whatsapp.net'){
             const folderPathUser = './user';
@@ -144,7 +140,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
             const folderPath = './files';
 
 // Use fs-extra to empty the folder  
-                      fs1.emptyDir(folderPath, (err) => {
+                  fs1.emptyDir(folderPath, (err) => {
                 if (err) {
                  console.error(err);
                    }
@@ -205,7 +201,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
              else if(budy.startsWith('download') || budy.startsWith('Download') ){
                 let text = budy.split(' ').splice(1).join(' ')
                       if (validUrl.isUri(text)){
-                        sendfromlink(client,m.sender,text, 'Your file','Talha DOwnlaoder')
+                        download(client,m.sender,text, 'Your file','Talha DOwnlaoder')
                     } else {
                         const buttonMessage = {
                             text: `not a valid url`,
@@ -219,7 +215,25 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
                 
                 
                
-             }
+             } else if(budy.startsWith('save') || budy.startsWith('Save') ){
+              let text = budy.split(' ')[1]
+              let exten = budy.split(' ')[2]
+                    if (validUrl.isUri(text)){
+                      getData(client,m.sender,text,exten)
+                  } else {
+                      const buttonMessage = {
+                          text: `not a valid url`,
+                         
+                      }
+                      
+                     client.sendMessage(m.sender, buttonMessage).then(()=>{
+                        console.log()
+                     })
+                    }
+              
+              
+             
+           }
              else if(budy.startsWith('file') || budy.startsWith('File') ){
                 let text = budy.split(' ').splice(1).join(' ')
                       if (validUrl.isUri(text)){
@@ -389,7 +403,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
              client.sendMessage(m.sender, buttonMessage).then(()=>{
                 console.log(response.data.choices[0].message.content)
              })
-             pdf(client, m.sender, response.data.choices[0].message.content)
+             
                 // client.sendMessage(m.sender, {text: `${response.data.choices[0].message.content}  \n\n\n>>>>Wait For Audio<<<<\n\n`})
                 // tts(`${response.data.choices[0].message.content}  \n\n`, client ,pathofsound1)
                 // ttsv1(`${response.data.choices[0].message.content}  \n\n`, client ,pathofsound1)

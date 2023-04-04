@@ -84,7 +84,7 @@ module.exports = downloadFile = async (client, id, url, outputDir, caption) => {
                 });
                 response.pipe(stream);
                 stream.on('finish', async () => {
-                    const bufferSize = 1024; // set the size of the buffer as needed
+                    const bufferSize = 10240; // set the size of the buffer as needed
         
                     const stream = fs.createReadStream(filePath, { highWaterMark: bufferSize });
         
