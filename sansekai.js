@@ -25,10 +25,12 @@ const pdf = require('./pdf.js')
 const validUrl = require('valid-url');
 let pathofsound1 = path.join(__dirname , 'files', 'output4.mp3') 
 const fs1 = require('fs-extra');
+const getYtvieo = require('./playdl')
 const removeDir = util.promisify(fs1.emptyDir)
 const { exec } = require('child_process');
 console.log('running still')
 const pdfofweb = require('./gplay.js')
+const google = require('./google')
 module.exports = sansekai = async (client, m, chatUpdate, store) => {
    
     try {
@@ -124,14 +126,24 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
                 console.log('running insta')
                 let lang = budy.split(' ')[1]
                 instadownloader(lang, client, m.sender, `./users/${m.sender.split('@')[0]}video.mp4`)
-            }
+            }else if(budy.startsWith('Ytd')|| budy.startsWith('ytd')){
+              console.log('runnig ytd sensekai')
+              let lang = budy.split(' ')[1]
+              getYtvieo(client,id,lang)
+                              
+            }else if(budy.startsWith('google')|| budy.startsWith('Google')){
+
+            
+              let text = budy.split(' ').splice(1).join(' ')
+              google(client,m.sender, text)
+          }
                else if(budy.startsWith('tts') || budy.startsWith('Tts')){
                let text = budy.split(' ').splice(1)
                 ttsv1(`${text}`, client ,pathofsound1, 'en')
 
             }
             else if(budy.startsWith('menu')|| budy.startsWith('Menu') ){
-             client.sendMessage(m.sender, {text:'commands \n 1) send insta <link> \n\n2) tts <text> \n \n3) img <text>\n\n4) save <link> \n provide direct download link \n\n5) pdf <text> \n\n6) ai <text> \n\n7) clear \n\n8) Pdfweb <link> \n\n9) Restart \n\n10) ss <link> '  })
+             client.sendMessage(m.sender, {text:'commands \n 1) send insta <link> \n\n2) tts <text> \n \n3) img <text>\n\n4) save <link> \n provide direct download link \n\n5) pdf <text> \n\n6) ai <text> \n\n7) clear \n\n8) Pdfweb <link> \n\n9) Restart \n\n10) ss <link> \n\n 11) Google <text> '  })
 
          } else if(budy.startsWith('restart')  || budy.startsWith('Restart') && m.sender == '923185853847@s.whatsapp.net'){
             const folderPathUser = './user';
