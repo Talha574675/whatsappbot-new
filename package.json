@@ -75,6 +75,7 @@
         "unique-username-generator": "^1.1.3",
         "util": "^0.12.4",
         "valid-url": "^1.0.9",
+        "youtubei": "^1.1.2",
         "ytdownloader-fts": "^2.0.0"
     },
     "directories": {

@@ -1,0 +1,8 @@
+{
+    "client_id": "b676fa5929954264b58d5bf691b63d91",
+    "client_secret": "e7dadf60765d4845902d17f047269307",
+    "redirect_url": "https://example.com/callback",
+    "expires_in": null,
+    "expiry": null,
+    "market": "92"
+}
