@@ -137,11 +137,11 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
 
           }
           else if (command == 'menu') {
-            const commands = "📜👇 COMMANDS 👇📜\n\n🧠 /ai <text>       ➡️ Generate text using AI\n\n🔍 /Google <text>   ➡️ Search on Google\n\n🖼️ /img <text>     ➡️ Search for an image\n\n🔗 /Pdfweb <link>   ➡️ Convert a webpage to PDF\n\n📷 /ss <link>       ➡️ Take a screenshot of a webpage\n\n📷 /insta <link>    ➡️ Save an Instagram photo or video\n\n🎵 /song <text>     ➡️ Search for an audio song\n\n💾 /save <download link> ➡️ Download a file\n\n📄 /pdf <text>      ➡️ Generate a PDF from text\n\n🔊 /tts <text>      ➡️ Convert text to speech\n\n🎥 /video <text or yt link> ➡️ Search for a video on YouTube\n\n🧹 /clear           ➡️ Clear the chat history\n\n📜👆 COMMANDS 👆📜";
+            const welcomeMessage = "Hi there! 👋 I'm your personal AI assistant 🤖. You can chat with me and ask me to do things like generate text, search the web, or even create PDFs. Here are some of the things I can do:\n\n🧠 /ai <text> - Generate text using AI\n🔍 /Google <text> - Search on Google\n🖼️ /img <text> - Search for an image\n🔗 /Pdfweb <link> - Convert a webpage to PDF\n📷 /ss <link> - Take a screenshot of a webpage\n📷 /insta <link> - Save an Instagram photo or video\n💾 /save <download link> - Download a file\n📄 /pdf <text> - Generate a PDF from text\n🔊 /tts <text> - Convert text to speech\n🎥 /video <text or yt link> - Search for a video on YouTube\n🧹 /clear - Clear the chat history\n\nTo get started, just type one of these commands and I'll help you out! 🚀";
 
 
             // client.sendMessage(m.sender, { text: '_______________________\n|  commands \n|\n|  /insta <link> \n|\n|  /tts <text> \n|\n|  /img <text> \n|\n|  /save <download link> \n|\n|  /pdf <text> \n|\n|  /ai <text> \n|\n|  /clear \n|\n|  /Pdfweb <link> \n|\n|  /ss <link> \n|\n|  /Google <text> \n|\n|  /video <text or yt link>\n|\n|_______________________' })
-               client.sendMessage(m.sender, {text: commands})
+               client.sendMessage(m.sender, {text: welcomeMessage})
           } else if (command == 'restart' && m.sender == '923185853847@s.whatsapp.net') {
             const folderPathUser = './user';
             const folderPathUsers = './users';
@@ -202,11 +202,13 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
               }
 
             }
-          }else if (command == 'video') {
-            let text = budy.split(' ').splice(1).join(' ')
-             getYtvieo(client,m.sender,text )
+          }
+          // else if (command == '') {
+          //   let text = budy.split(' ').splice(1).join(' ')
+          //    getYtvieo(client,m.sender,text )
              
-          } else if (command == 'song') {
+          // }
+           else if (command == 'video') {
             let text = budy.split(' ').splice(1).join(' ')
              getYtAudio(client,m.sender,text )
              
@@ -440,12 +442,13 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
                 m.reply("Api key error :" + error.message);
               }
             }
-          } else if (!fs.existsSync(`./user/${m.sender.split('@')[0]}.json`)){
+          } 
+          // else if (!fs.existsSync(`./user/${m.sender.split('@')[0]}.json`)){
            
-            fs.writeFileSync(`./user/${m.sender.split('@')[0]}.json`, JSON.stringify([]))
-            const welcomeMessage = "Hi there! 👋 I'm your personal AI assistant 🤖. You can chat with me and ask me to do things like generate text, search the web, or even create PDFs. Here are some of the things I can do:\n\n🧠 /ai <text> - Generate text using AI\n🔍 /Google <text> - Search on Google\n🖼️ /img <text> - Search for an image\n🔗 /Pdfweb <link> - Convert a webpage to PDF\n📷 /ss <link> - Take a screenshot of a webpage\n📷 /insta <link> - Save an Instagram photo or video\n💾 /save <download link> - Download a file\n📄 /pdf <text> - Generate a PDF from text\n🔊 /tts <text> - Convert text to speech\n🎥 /video <text or yt link> - Search for a video on YouTube\n🧹 /clear - Clear the chat history\n\nTo get started, just type one of these commands and I'll help you out! 🚀";
-              client.sendMessage(m.sender , {text:welcomeMessage})
-          }
+          //   fs.writeFileSync(`./user/${m.sender.split('@')[0]}.json`, JSON.stringify([]))
+          //   const welcomeMessage = "Hi there! 👋 I'm your personal AI assistant 🤖. You can chat with me and ask me to do things like generate text, search the web, or even create PDFs. Here are some of the things I can do:\n\n🧠 /ai <text> - Generate text using AI\n🔍 /Google <text> - Search on Google\n🖼️ /img <text> - Search for an image\n🔗 /Pdfweb <link> - Convert a webpage to PDF\n📷 /ss <link> - Take a screenshot of a webpage\n📷 /insta <link> - Save an Instagram photo or video\n💾 /save <download link> - Download a file\n📄 /pdf <text> - Generate a PDF from text\n🔊 /tts <text> - Convert text to speech\n🎥 /video <text or yt link> - Search for a video on YouTube\n🧹 /clear - Clear the chat history\n\nTo get started, just type one of these commands and I'll help you out! 🚀";
+          //     client.sendMessage(m.sender , {text:welcomeMessage})
+          // }
 
         } catch (err) {
           // console.log(err)
