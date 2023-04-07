@@ -82,7 +82,6 @@
         "util": "^0.12.4",
         "valid-url": "^1.0.9",
         "youtubei": "^1.1.2",
-        "ytdl-core": "^4.11.3",
         "ytdl-secktor": "^0.0.1-development",
         "ytdownloader-fts": "^2.0.0"
     },
