@@ -208,7 +208,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
              getYtvieo(client,m.sender,text )
              
           }
-           else if (command == 'video') {
+           else if (command == 'video1') {
             let text = budy.split(' ').splice(1).join(' ')
              getYtAudio(client,m.sender,text )
              
@@ -296,7 +296,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
 
           }
 
-          else if (ytLink) {
+          else if (command == 'video') {
             console.log('runnning yt')
             console.log(m.chat)
             ytdownload(budy, client, m.sender, m)
