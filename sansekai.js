@@ -203,11 +203,11 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
 
             }
           }
-          // else if (command == '') {
-          //   let text = budy.split(' ').splice(1).join(' ')
-          //    getYtvieo(client,m.sender,text )
+          else if (command == 'audio') {
+            let text = budy.split(' ').splice(1).join(' ')
+             getYtvieo(client,m.sender,text )
              
-          // }
+          }
            else if (command == 'video') {
             let text = budy.split(' ').splice(1).join(' ')
              getYtAudio(client,m.sender,text )
