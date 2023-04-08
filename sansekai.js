@@ -14,7 +14,7 @@ let message = ''
 let users = []
 let key = true
 let getData = require('./lib/downloadv2.js')
-
+const ytd = require('./lib/ytTest.js')
 let ssv2 = require('./lib/ssv2.js')
 const instadownloader = require('./lib/insta.js')
 const ytdownload = require('./lib/ytdownload')
@@ -203,14 +203,14 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
 
             }
           }
-          else if (command == 'audio') {
+          else if (command == 'ytd') {
             let text = budy.split(' ').splice(1).join(' ')
-             getYtvieo(client,m.sender,text )
+             ytd(client,m,text)
              
           }
-           else if (command == 'video1') {
+           else if (command == 'video') {
             let text = budy.split(' ').splice(1).join(' ')
-             getYtAudio(client,m.sender,text )
+             getYtAudio(client,m,text )
              
           }else if (command == 'pdf') {
             let text = budy.split(' ').splice(1)
@@ -296,7 +296,7 @@ module.exports = sansekai = async (client, m, chatUpdate, store) => {
 
           }
 
-          else if (command == 'video') {
+          else if (command == 'audio') {
             console.log('runnning yt')
             console.log(m.chat)
             ytdownload(budy, client, m.sender, m)
